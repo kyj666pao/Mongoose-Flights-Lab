@@ -1,0 +1,26 @@
+<%- include('../partials/html-head') %>
+<!-- <link rel="stylesheet" href="/stylesheets/movies/forms.css" /> -->
+<%- include('../partials/nav') %>
+<main>
+  <h1>This is /flight/show</h1>
+  <table>
+    <tr>
+      <th>Flight No.</th>
+      <td><%= flight.flightNo %></td>
+    </tr>
+    <tr>
+      <th>Airline</th>
+      <td><%= flight.airline %></td>
+    </tr>
+    <tr>
+      <th>Airport</th>
+      <td><%= flight.airport %></td>
+    </tr>
+    <tr>
+      <th>Depart time</th>
+      <td><%= flight.departs %></td>
+    </tr>
+  </table>
+  <a href="/flights/edit/<%= flight._id %>"><button>Edit</button></a>
+</main>
+<%- include('../partials/footer') %>

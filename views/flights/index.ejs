@@ -1,34 +1,41 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
-    <main>
-        <table>
-            <thead>
-                <tr>
-                    <th>Airline</th>
-                    <th>Airport</th>
-                    <th>Flight No.</th>
-                    <th>Depart time</th>
-                </tr>
-            </thead>
-            <tbody>
-                <% flights.forEach(e => { %>
-                    <tr>
-                        <td><%= e.airline %></td>
-                        <td><%= e.airport %></td>
-                        <td><%= e.flightNo %></td>
-                        <td><%= e.departs %></td>
-                    </tr>
-                <% }) %>
-            </tbody>
-        </table>
-        
-    </main>
-</body>
-</html>
+<%- include('../partials/html-head') %>
+<!-- <link rel="stylesheet" href="/stylesheets/flights/forms.css" /> -->
+<link rel="stylesheet" href="/stylesheets/flights/main.css" />
+<%- include('../partials/nav') %>
+<main>
+  <table>
+    <thead>
+      <tr>
+        <th>Flight No.</th>
+        <th>Airline</th>
+        <th>Airport</th>
+        <th>Depart time</th>
+        <th>Delete</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% flights.forEach(flight => { %>
+      <tr class="<%= (flight.departs.toISOString().slice(0, 16)).localeCompare(ct) < 0 ? "red": "" %>">
+        <td>
+            <a href="/flights/<%= flight._id %>">
+                <%= flight.flightNo %>
+            </a>
+        </td>
+        <td><%= flight.airline %></td>
+        <td><%= flight.airport %></td>
+        <td><%= flight.departs %></td>
+        <td>
+          <form
+            action="/flights/<%= flight._id %>?_method=DELETE"
+            class="delete-form"
+            method="POST"
+          >
+            <button type="submit">X</button>
+          </form>
+        </td>
+      </tr>
+      <% }) %>
+    </tbody>
+  </table>
+</main>
+<%- include('../partials/footer') %>

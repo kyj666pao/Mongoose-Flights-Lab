@@ -3,24 +3,23 @@
 <%- include('../partials/nav') %>
 <h1>This is flights/edit</h1>
 <main>
-  <form class="new-form" action="/flights" method="post">
+  <form class="new-form" action="/flights/<%= flight._id %>?_method=PUT" method="POST">
     <label for="airline">Airline:</label>
     <select name="airline" id="airline">
-      <option value="American">American</option>
-      <option value="Southwest">Southwest</option>
-      <option value="United">United</option>
+        <% airlineOption.forEach(e => { %>
+            <option value=<%= e %> <%= flight.airline === e ? "selected" : "" %>
+                ><%= e %></option>
+        <% }) %>
     </select>
     <label for="airport">Airport</label>
     <select name="airport" id="airport">
-      <option value="AUS">AUS</option>
-      <option value="DFW">DFW</option>
-      <option value="DEN" selected>DEN</option>
-      <option value="LAX">LAX</option>
-      <option value="SAN">SAN</option>
+        <% airportOption.forEach(e => { %>
+            <option value=<%= e %> <%= flight.airport === e ? "selected" : "" %>
+                ><%= e %></option>
+        <% }) %>
     </select>
     <label for="flightNo">Flight#</label>
-    <input type="number" name="flightNo" id="flightNo" required />
-    <label for="departs">Depart time</label>
+    <input type="number" name="flightNo" id="flightNo" value="<%= flight.flightNo %>" required />
     <input type="datetime-local" 
            name="departs" 
            class="date-time" 
