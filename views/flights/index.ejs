@@ -3,6 +3,7 @@
 <link rel="stylesheet" href="/stylesheets/flights/main.css" />
 <%- include('../partials/nav') %>
 <main>
+  <h1><%= title %></h1>
   <table>
     <thead>
       <tr>
@@ -15,7 +16,7 @@
     </thead>
     <tbody>
       <% flights.forEach(flight => { %>
-      <tr class="<%= (flight.departs.toISOString().slice(0, 16)).localeCompare(ct) < 0 ? "red": "" %>">
+      <tr class="<%= flight.departs < Date.now() ? "red": "" %>">
         <td>
             <a href="/flights/<%= flight._id %>">
                 <%= flight.flightNo %>
@@ -23,7 +24,7 @@
         </td>
         <td><%= flight.airline %></td>
         <td><%= flight.airport %></td>
-        <td><%= flight.departs %></td>
+        <td><%= flight.departs.toISOString().slice(0, 16) %></td>
         <td>
           <form
             action="/flights/<%= flight._id %>?_method=DELETE"

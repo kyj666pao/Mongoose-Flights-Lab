@@ -1,0 +1,20 @@
+<%- include('../partials/html-head') %>
+<!-- <link rel="stylesheet" href="/stylesheets/movies/forms.css" /> -->
+<%- include('../partials/nav') %>
+
+<main>
+    <h1><%= title %></h1>
+    <h3>Please add a meal that is not on current menu.</h3>
+    <ul>
+        <% meals.forEach(meal => { %>
+            <li ><%= meal.name %></li>
+        <% }) %>
+    </ul>
+    
+    <form action="/meals" method="POST">
+        <label for="name" >Meal:</label>
+        <input type="text" name="name" id="meal">
+        <button type="submit">Add Meal</button>
+    </form>
+</main>
+<%- include('../partials/footer') %>

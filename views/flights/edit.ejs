@@ -1,8 +1,9 @@
 <%- include('../partials/html-head') %>
 <!-- <link rel="stylesheet" href="/stylesheets/movies/forms.css" /> -->
 <%- include('../partials/nav') %>
-<h1>This is flights/edit</h1>
+
 <main>
+  <h1><%= title %></h1>
   <form class="new-form" action="/flights/<%= flight._id %>?_method=PUT" method="POST">
     <label for="airline">Airline:</label>
     <select name="airline" id="airline">
@@ -19,7 +20,7 @@
         <% }) %>
     </select>
     <label for="flightNo">Flight#</label>
-    <input type="number" name="flightNo" id="flightNo" value="<%= flight.flightNo %>" required />
+    <input type="number" name="flightNo" id="flightNo"  min="10" max="9999"  value="<%= flight.flightNo %>" required />
     <input type="datetime-local" 
            name="departs" 
            class="date-time" 

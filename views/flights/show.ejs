@@ -2,11 +2,14 @@
 <!-- <link rel="stylesheet" href="/stylesheets/movies/forms.css" /> -->
 <%- include('../partials/nav') %>
 <main>
-  <h1>This is /flight/show</h1>
+  <h1><%= title %></h1>
   <table>
     <tr>
       <th>Flight No.</th>
-      <td><%= flight.flightNo %></td>
+      <td>
+        <%= flight.flightNo %>
+        <a href="/flights/<%= flight._id %>/edit"><button>Edit</button></a>
+      </td>
     </tr>
     <tr>
       <th>Airline</th>
@@ -20,7 +23,56 @@
       <th>Depart time</th>
       <td><%= flight.departs %></td>
     </tr>
+    <tr>
+      <th>Meal</th>
+      <td>
+        <% if (flight.meal.length) { %>
+          <ul>
+            <% flight.meal.forEach(mealChoice => { %>
+              <li><%= mealChoice.name %></li>
+            <% }) %>
+          </ul>
+        <% } else { %>
+          <p>No meals added</p>
+        <% } %>
+      </td>
+    </tr>
   </table>
-  <a href="/flights/edit/<%= flight._id %>"><button>Edit</button></a>
+  <h3>Current menu:</h3>
+  <form action="/flights/<%= flight._id %>/meals" method="POST">
+    <select name="mealId" >
+      <% meals.forEach(meal => { %>
+      <option value="<%= meal._id %>"><%= meal.name %></option>
+      <% }) %>
+    </select>
+    <button type="submit">Add to Meal</button>
+  </form>
+  <br />
+  <h2>Tickets</h2>
+  <form action="/flights/<%= flight._id %>/tickets" method="POST">
+    <label for="seat">Seat:</label>
+    <input type="text" name="seat" id="seat" placeholder="A1~F99" />
+    <label for="price">Price:</label>
+    <input type="number" name="price" id="price" min="0" />
+    <button type="submit">Create Ticket</button>
+  </form>
+  <% if (flight.tickets.length) { %>
+  <table>
+    <thead>
+      <tr>
+        <th>Seat</th>
+        <th>Price</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% flight.tickets.forEach(ticket => { %>
+      <tr>
+        <td><%= ticket.seat %></td>
+        <td><%= ticket.price %></td>
+      </tr>
+      <% }); %>
+    </tbody>
+  </table>
+  <% } %>
 </main>
 <%- include('../partials/footer') %>
